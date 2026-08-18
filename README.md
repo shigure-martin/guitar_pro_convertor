@@ -8,7 +8,7 @@
 
 ## ✨ 特性
 
-- 🆓 **零成本**：用同样免费开源的 [MuseScore 4](https://musescore.org/) 作为渲染引擎（Apache 2.0）
+- 🆓 **零成本**：用同样免费开源的 [MuseScore 4 / Studio](https://musescore.org/) 作为渲染引擎（Apache 2.0）
 - 📦 **零依赖**：脚本本身只用 Python 3.8+ 标准库，无需 `pip install` 任何东西
 - ⬇ **首次自动下载**：找不到 MuseScore 时自动下载便携版到 `~/.gp2pdf/musescore/`，后续直接复用
 - 🪟 **跨平台**：Windows / macOS / Linux 全部支持
@@ -45,7 +45,7 @@ python gp2pdf.py --batch D:\scores D:\pdf_out
 ```
 
 输入 `Y` 后，脚本会：
-1. 下载 MuseScore 4 安装包到 `~/.gp2pdf/musescore/downloads/`
+1. 下载 MuseScore 4/Studio 安装包到 `~/.gp2pdf/musescore/downloads/` (默认 `MuseScore-Studio-4.7.4.260706075-x86_64.{msi,dmg,AppImage}`)
 2. 解压到 `~/.gp2pdf/musescore/`
 3. 之后所有转换都调用这个本地副本
 
@@ -117,7 +117,7 @@ options:
 
 ## 🎼 支持的 GP 格式
 
-| 扩展名 | 来源 | MuseScore 4 支持 |
+| 扩展名 | 来源 | MuseScore 支持 |
 |--------|------|-----------------|
 | `.gp3` | Guitar Pro 3 | ✅ 完全支持 |
 | `.gp4` | Guitar Pro 4 | ✅ 完全支持 |
@@ -136,17 +136,18 @@ options:
 
 ```bash
 # Windows PowerShell
-$env:GP2PDF_MUSESCORE_VERSION = "4.6.0"
+$env:GP2PDF_MUSESCORE_VERSION = "4.7.4"
+$env:GP2PDF_MUSESCORE_BUILD = "260706075"
 python gp2pdf.py song.gp
 
 # Linux/macOS bash
-GP2PDF_MUSESCORE_VERSION=4.6.0 python gp2pdf.py song.gp
+GP2PDF_MUSESCORE_VERSION=4.7.4 GP2PDF_MUSESCORE_BUILD=260706075 python gp2pdf.py song.gp
 ```
 
 或完全自定义下载 URL：
 
 ```bash
-$env:GP2PDF_MUSESCORE_URL = "https://your-mirror/MuseScore-4.6.0-x86_64.msi"
+$env:GP2PDF_MUSESCORE_URL = "https://your-mirror/MuseScore-Studio-4.7.4.260706075-x86_64.msi"
 ```
 
 ---
@@ -157,13 +158,13 @@ $env:GP2PDF_MUSESCORE_URL = "https://your-mirror/MuseScore-4.6.0-x86_64.msi"
 A: 只在首次自动下载 MuseScore 时联网。之后所有转换都在本地完成。
 
 **Q: 国内网络下载 MuseScore 慢怎么办？**
-A: 自己先下好 MSI/DMG/AppImage，放到 `~/.gp2pdf/musescore/downloads/`，文件名按默认规则，脚本会复用。或者用 `GP2PDF_MUSESCORE_URL` 指向镜像。
+A: 自己先下好 MSI/DMG/AppImage，放到 `~/.gp2pdf/musescore/downloads/` (默认 `MuseScore-Studio-4.7.4.260706075-x86_64.{msi,dmg,AppImage}`)，文件名按默认规则，脚本会复用。或者用 `GP2PDF_MUSESCORE_URL` 指向镜像。
 
 **Q: 转换出来的 PDF 怎么多页？**
 A: 每个轨道占一页/几页，按原谱顺序。
 
-**Q: 我已经装过 MuseScore 4 怎么办？**
-A: 脚本会自动检测 `C:\Program Files\MuseScore 4\` 等标准位置，找到就直接用，不会重复下载。
+**Q: 我已经装过 MuseScore 怎么办？**
+A: 脚本会自动检测 `C:\Program Files\MuseScore 4\` 或 `C:\Program Files\MuseScore Studio\` 等标准位置，找到就直接用，不会重复下载。
 
 **Q: 怎么卸载？**
 A: `python gp2pdf.py --remove` 清缓存。脚本本身是单个 Python 文件，删了就行。
@@ -177,4 +178,4 @@ A: GP6/7/8 有时被打包成 ZIP，里面是真正的 .gp 文件。先解压再
 
 MIT License — 见 [LICENSE](LICENSE) 文件。
 
-本工具**只是调用** MuseScore 4 作为渲染引擎，MuseScore 本身遵循 Apache License 2.0。
+本工具**只是调用** MuseScore 4 作为渲染引擎，MuseScore 本身遵循 Apache License 2.0 (注: MuseScore 4.x 后期版本更名为 "MuseScore Studio", 仍免费)。
