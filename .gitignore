@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+*.so
+
+# Virtual env
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# 测试与缓存
+_test/
+*.pdf.bak
+*.log
+
+# MuseScore 自动下载缓存 (本地用户机器会用到，不入仓库)
+.gp2pdf-cache/
+
+# OS
+.DS_Store
+Thumbs.db
